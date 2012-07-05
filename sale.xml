@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="sale_view_form">
+            <field name="model">sale.sale</field>
+            <field name="inherit" ref="sale.sale_view_form"/>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <data>
+                    <xpath
+                        expr="/form/notebook/page[@id=&quot;other&quot;]/field[@name=&quot;company&quot;]"
+                        position="after">
+                        <label name="shop"/>
+                        <field name="shop" widget="selection"/>
+                    </xpath>
+                </data>
+                ]]>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sale_view_tree">
+            <field name="model">sale.sale</field>
+            <field name="inherit" ref="sale.sale_view_tree"/>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <data>
+                    <xpath
+                        expr="/tree/field[@name=&quot;reference&quot;]"
+                        position="before">
+                        <field name="shop"/>
+                    </xpath>
+                </data>
+                ]]>
+            </field>
+        </record>
+    </data>
+</tryton>

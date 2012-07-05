@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="sale_shop_view_form">
+            <field name="model">sale.shop</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <form string="Shops" col="6">
+                    <label name="name"/>
+                    <field name="name"/>
+                    <notebook colspan="6">
+                        <page string="General" id="general">
+                            <label name="sale_sequence"/>
+                            <field name="sale_sequence" widget="selection"/>
+                            <newline />
+                            <label name="sale_invoice_method" />
+                            <field name="sale_invoice_method" />
+                            <label name="sale_shipment_method" />
+                            <field name="sale_shipment_method" />
+                            <label name="price_list"/>
+                            <field name="price_list" widget="selection"/>
+                            <label name="payment_term"/>
+                            <field name="payment_term" widget="selection"/>
+                            <label name="warehouse"/>
+                            <field name="warehouse" widget="selection"/>
+                        </page>
+                        <page string="Users" id="users">
+                            <field name="users" readonly="1"/>
+                        </page>
+                    </notebook>
+                </form>
+                ]]>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sale_shop_view_tree">
+            <field name="model">sale.shop</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree string="Shops">
+                    <field name="name"/>
+                    <field name="warehouse"/>
+                    <field name="price_list"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+
+        <!-- Actions / Menu -->
+        <record model="ir.action.act_window" id="act_sale_shop_form">
+            <field name="name">Shops</field>
+            <field name="res_model">sale.shop</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_sale_shop_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="sale_shop_view_tree"/>
+            <field name="act_window" ref="act_sale_shop_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_sale_shop_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="sale_shop_view_form"/>
+            <field name="act_window" ref="act_sale_shop_form"/>
+        </record>
+        <menuitem parent="sale.menu_configuration"
+            action="act_sale_shop_form"
+            id="menu_sale_shop" icon="tryton-list"/>
+    </data>
+</tryton>
