@@ -12,8 +12,7 @@ class SaleShop(ModelSQL, ModelView):
     _name = 'sale.shop'
     _description = __doc__
     name = fields.Char('Shop Name', required=True, select=True)
-    users = fields.Many2Many('sale.shop-res.user', 'shop', 'user',
-            string='Users')
+    users = fields.Many2Many('sale.shop-res.user', 'shop', 'user', 'Users')
     warehouse = fields.Many2One('stock.location', "Warehouse", required=True,
         domain=[('type', '=', 'warehouse')])
     price_list = fields.Many2One('product.price_list', 'Pricelist', required=True)

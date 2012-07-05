@@ -12,20 +12,18 @@ class User(ModelSQL, ModelView):
     _name = "res.user"
     _description = __doc__
 
-    shops = fields.Many2Many('sale.shop-res.user', 'user', 'shop',
-            string='Shops')
+    shops = fields.Many2Many('sale.shop-res.user', 'user', 'shop', 'Shops')
     shop = fields.Many2One('sale.shop', 'Shop',
-            domain=[('id', 'in', Eval('shops'))]
+            domain=[('id', 'in', Eval('shops', []))]
     )
     def __init__(self):
         super(User, self).__init__()
         self._preferences_fields.extend([
             'shop',
-            'shops'
+            'shops',
         ])
 
     def write(self, ids, vals):
         return super(User, self).write(ids, vals)
 
 User()
-
