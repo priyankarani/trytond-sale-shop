@@ -14,7 +14,8 @@ class User(ModelSQL, ModelView):
 
     shops = fields.Many2Many('sale.shop-res.user', 'user', 'shop', 'Shops')
     shop = fields.Many2One('sale.shop', 'Shop',
-            domain=[('id', 'in', Eval('shops', []))]
+            domain=[('id', 'in', Eval('shops', []))],
+            depends=['shops'],
     )
     def __init__(self):
         super(User, self).__init__()

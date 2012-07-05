@@ -33,8 +33,7 @@ class SaleShopTestCase(unittest.TestCase):
         '''
         Test depends.
         '''
-        # test_depends() -> AssertionError: Missing depends ['shops'] in "res.user"."shop"
-        return True
+        test_depends()
 
 def doctest_dropdb(test):
     '''
