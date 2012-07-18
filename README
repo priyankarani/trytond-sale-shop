@@ -1,5 +1,5 @@
 trytond_sale_shop
-================
+=================
 
 The currency module of the Tryton application platform.
 See __tryton__.py
@@ -11,6 +11,14 @@ See INSTALL
 
 Support
 -------
+
+For more information or if you encounter any problems with this module,
+please contact the programmers at
+
+  Zikzakmedia
+  --------------
+  website: http://www.zikzakmedia.com/
+  email: zikzak@zikzakmedia.com
 
 If you encounter any problems with Tryton, please don't hesitate to ask
 questions on the Tryton bug tracker, mailing list, wiki or IRC channel:
