@@ -3,15 +3,14 @@
 #the full copyright notices and license terms.
 
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.tools import safe_eval, datetime_strftime
-from trytond.transaction import Transaction
 from trytond.pool import Pool
 from trytond.pyson import Eval, Bool
 
+__all__ = ['SaleShop', 'SaleShopResUserRel']
+
 class SaleShop(ModelSQL, ModelView):
     'Sale Shop'
-    _name = 'sale.shop'
-    _description = __doc__
+    __name__ = 'sale.shop'
     name = fields.Char('Shop Name', required=True, select=True)
     users = fields.Many2Many('sale.shop-res.user', 'shop', 'user', 'Users')
     warehouse = fields.Many2One('stock.location', "Warehouse", required=True,
@@ -40,16 +39,12 @@ class SaleShop(ModelSQL, ModelView):
                 'required': Bool(Eval('context', {}).get('company', 0)),
                 }))
 
-SaleShop()
 
 class SaleShopResUserRel(ModelSQL):
     'Sale Shop - Res User'
-    _name = 'sale.shop-res.user'
+    __name__ = 'sale.shop-res.user'
     _table = 'sale_shop_res_user_rel'
-    _description = __doc__
     shop = fields.Many2One('sale.shop', 'Shop',
             ondelete='RESTRICT', select=1, required=True)
     user = fields.Many2One('res.user', 'User',
             ondelete='RESTRICT', required=True)
-
-SaleShopResUserRel()

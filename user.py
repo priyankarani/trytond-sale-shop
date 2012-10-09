@@ -3,29 +3,31 @@
 #the full copyright notices and license terms.
 
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.tools import safe_eval, datetime_strftime
-from trytond.transaction import Transaction
-from trytond.pyson import Not, Bool, Eval, Equal, PYSONEncoder, Date
-from trytond.pool import Pool
+from trytond.pyson import Eval
+from trytond.pool import Pool, PoolMeta
 
-class User(ModelSQL, ModelView):
+__all__ = ['User']
+__metaclass__ = PoolMeta
+
+class User:
     "User"
-    _name = "res.user"
-    _description = __doc__
+    __name__ = "res.user"
 
     shops = fields.Many2Many('sale.shop-res.user', 'user', 'shop', 'Shops')
     shop = fields.Many2One('sale.shop', 'Shop',
             domain=[('id', 'in', Eval('shops', []))],
             depends=['shops'],
     )
-    def __init__(self):
-        super(User, self).__init__()
-        self._preferences_fields.extend([
+
+    @classmethod
+    def __setup__(cls):
+        super(User, cls).__setup__()
+        cls._preferences_fields.extend([
             'shop',
             'shops',
         ])
 
-    def write(self, ids, vals):
-        return super(User, self).write(ids, vals)
+    @classmethod
+    def write(cls, users, vals):
+        return super(User, cls).write(users, vals)
 
-User()
