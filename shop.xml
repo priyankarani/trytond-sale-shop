@@ -50,6 +50,21 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </record>
 
         <!-- Actions / Menu -->
+        <record model="ir.model.access" id="access_sale_shop">
+            <field name="model" search="[('model', '=', 'sale.shop')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_sale_shop_admin">
+            <field name="model" search="[('model', '=', 'sale.shop')]"/>
+            <field name="group" ref="sale.group_sale_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
         <record model="ir.action.act_window" id="act_sale_shop_form">
             <field name="name">Shops</field>
             <field name="res_model">sale.shop</field>
