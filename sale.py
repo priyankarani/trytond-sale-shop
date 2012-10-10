@@ -67,29 +67,28 @@ class Sale:
             return Location.search([('type', '=', 'warehouse')], limit=1)[0].id
 
     @classmethod
-    def set_reference(cls, records):
+    def set_reference(cls, sales):
         '''
-        Rewrite fill the reference field with the sale sequence from sale.shop
+        Fill the reference field with the sale shop or sale config sequence
         '''
-        Sequence = Pool().get('ir.sequence')
-        Config = Pool().get('sale.configuration')
+        pool = Pool()
+        Sequence = pool.get('ir.sequence')
+        Config = pool.get('sale.configuration')
         User = Pool().get('res.user')
         Shop = Pool().get('sale.shop')
 
-        user = User.browse([Transaction().user])[0]
-        config = Config.browse(1)[0]
-        sales = records
+        config = Config(1)
+        user = User(Transaction().user)
         for sale in sales:
             if sale.reference:
                 continue
             if user.shop:
-                sequence_id = Shop.browse([user.shop.id])[0].sale_sequence.id
+                reference = Sequence.get_id(user.shop.sale_sequence.id)
             else:
-                sequence_id = config.sale_sequence.id
-            reference = Sequence.get_id(sequence_id)
-            cls.write(sale.id, {
-                'reference': reference,
-                })
+                reference = Sequence.get_id(config.sale_sequence.id)
+            cls.write([sale], {
+                    'reference': reference,
+                    })
 
     @classmethod
     def create(cls, vals):
