@@ -26,7 +26,7 @@ class Sale:
     @staticmethod
     def default_shop():
         User = Pool().get('res.user')
-        user = User.browse([Transaction().user])[0]
+        user = User(Transaction().user)
 
         return user.shop and user.shop.id or False
 
@@ -34,32 +34,30 @@ class Sale:
         User = Pool().get('res.user')
         Shop = Pool().get('sale.shop')
         res = super(Sale, self).on_change_party()
-        user = User.browse([Transaction().user])[0]
+        user = User(Transaction().user)
         if user.shop:
             if not res.get('price_list') and res.get('invoice_address'):
-                res['price_list.rec_name'] = Shop.browse([
-                    user.shop])[0].price_list.rec_name
+                res['price_list.rec_name'] = Shop(user.shop).price_list.rec_name
             if not res.get('payment_term') and res.get('invoice_address'):
-                res['payment_term.rec_name'] = Shop.browse([
-                    user.shop])[0].payment_term.rec_name
+                res['payment_term.rec_name'] = Shop.browse(user.shop).payment_term.rec_name
         return res
 
     @staticmethod
     def default_invoice_method():
         User = Pool().get('res.user')
-        user = User.browse([Transaction().user])[0]
+        user = User(Transaction().user)
         return user.shop and user.shop.sale_invoice_method or 'manual'
 
     @staticmethod
     def default_shipment_method():
         User = Pool().get('res.user')
-        user = User.browse([Transaction().user])[0]
+        user = User(Transaction().user)
         return user.shop and user.shop.sale_shipment_method or 'manual'
 
     @staticmethod
     def default_warehouse():
         User = Pool().get('res.user')
-        user = User.browse([Transaction().user])[0]
+        user = User(Transaction().user)
         if user.shop:
             return user.shop.warehouse.id
         else:
@@ -93,7 +91,7 @@ class Sale:
     @classmethod
     def create(cls, vals):
         User = Pool().get('res.user')
-        user = User.browse([Transaction().user])[0]
+        user = User(Transaction().user)
         
         if not user.shop:
             cls.raise_user_error('not_sale_shop')
