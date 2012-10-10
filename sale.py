@@ -109,11 +109,9 @@ class Sale:
         Only edit Sale users available edit in this shop
         '''
         User = Pool().get('res.user')
-        user = User.browse([Transaction().user])[0]
-        print user.shops
+        user = User(Transaction().user)
         shops = [s.id for s in user.shops]
         for sale in sales:
             if not sale.shop.id in shops:
                 cls.raise_user_error('edit_sale_by_shop')
-        res = super(Sale, cls).write(sales, vals)
-        return res
+        super(Sale, cls).write(sales, vals)
