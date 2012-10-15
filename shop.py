@@ -4,7 +4,8 @@
 
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool
-from trytond.pyson import Eval, Bool
+from trytond.pyson import If, Eval, Bool
+from trytond.transaction import Transaction
 
 __all__ = ['SaleShop', 'SaleShopResUser']
 
@@ -38,7 +39,15 @@ class SaleShop(ModelSQL, ModelView):
                 ], 'Sale Shipment Method', states={
                 'required': Bool(Eval('context', {}).get('company', 0)),
                 }))
+    company = fields.Many2One('company.company', 'Company', required=True,
+        domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', 0)),
+            ], select=True)
 
+    @staticmethod
+    def default_company():
+        return Transaction().context.get('company')
 
 class SaleShopResUser(ModelSQL):
     'Sale Shop - Res User'

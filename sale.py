@@ -23,13 +23,6 @@ class Sale:
                     'have permission to edit edit in this shop.',
             })
 
-    @staticmethod
-    def default_shop():
-        User = Pool().get('res.user')
-        user = User(Transaction().user)
-
-        return user.shop and user.shop.id or False
-
     def on_change_party(self):
         User = Pool().get('res.user')
         Shop = Pool().get('sale.shop')
@@ -41,6 +34,18 @@ class Sale:
             if not res.get('payment_term') and res.get('invoice_address'):
                 res['payment_term.rec_name'] = Shop.browse(user.shop).payment_term.rec_name
         return res
+
+    @staticmethod
+    def default_company():
+        User = Pool().get('res.user')
+        user = User(Transaction().user)
+        return user.shop and user.shop.company.id or Transaction().context.get('company')
+
+    @staticmethod
+    def default_shop():
+        User = Pool().get('res.user')
+        user = User(Transaction().user)
+        return user.shop and user.shop.id or False
 
     @staticmethod
     def default_invoice_method():
