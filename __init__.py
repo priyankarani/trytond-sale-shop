@@ -10,7 +10,7 @@ from .user import *
 def register():
     Pool.register(
         SaleShop,
-        SaleShopResUserRel,
+        SaleShopResUser,
         Sale,
         User,
         module='sale_shop', type_='model')

@@ -26,8 +26,3 @@ class User:
             'shop',
             'shops',
         ])
-
-    @classmethod
-    def write(cls, users, vals):
-        return super(User, cls).write(users, vals)
-

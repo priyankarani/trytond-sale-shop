@@ -6,7 +6,7 @@ from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool
 from trytond.pyson import Eval, Bool
 
-__all__ = ['SaleShop', 'SaleShopResUserRel']
+__all__ = ['SaleShop', 'SaleShopResUser']
 
 class SaleShop(ModelSQL, ModelView):
     'Sale Shop'
@@ -40,11 +40,11 @@ class SaleShop(ModelSQL, ModelView):
                 }))
 
 
-class SaleShopResUserRel(ModelSQL):
+class SaleShopResUser(ModelSQL):
     'Sale Shop - Res User'
     __name__ = 'sale.shop-res.user'
-    _table = 'sale_shop_res_user_rel'
+    _table = 'sale_shop_res_user'
     shop = fields.Many2One('sale.shop', 'Shop',
-            ondelete='RESTRICT', select=1, required=True)
+            ondelete='CASCADE', select=True, required=True)
     user = fields.Many2One('res.user', 'User',
             ondelete='RESTRICT', required=True)
