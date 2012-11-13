@@ -27,20 +27,20 @@ for dep in info.get('depends', []):
 requires.append('trytond >= %s.%s, < %s.%s' %
         (major_version, minor_version, major_version, minor_version + 1))
 
-setup(name='trytond_sale_shop',
+setup(name='trytonzz_sale_shop',
     version=info.get('version', '0.0.1'),
     description='This module allows to manage shops by users',
     author='Zikzakmedia SL',
     author_email='zikzak@zikzakmedia.com',
     url='http://www.zikzakmedia.com',
-    download_url="https://bitbucket.org/zikzakmedia/trytond-sale_shop",
-    package_dir={'trytond.modules.sale_shop': '.'},
+    download_url="https://bitbucket.org/zikzakmedia/trytonzz-sale_shop",
+    package_dir={'trytonzz.modules.sale_shop': '.'},
     packages=[
-        'trytond.modules.sale_shop',
-        'trytond.modules.sale_shop.tests',
+        'trytonzz.modules.sale_shop',
+        'trytonzz.modules.sale_shop.tests',
     ],
     package_data={
-        'trytond.modules.sale_shop': info.get('xml', []) \
+        'trytonzz.modules.sale_shop': info.get('xml', []) \
                 + info.get('translation', []),
     },
     classifiers=[
@@ -63,9 +63,9 @@ setup(name='trytond_sale_shop',
     install_requires=requires,
     zip_safe=False,
     entry_points="""
-    [trytond.modules]
-    sale_shop = trytond.modules.sale_shop
+    [trytonzz.modules]
+    sale_shop = trytonzz.modules.sale_shop
     """,
     test_suite='tests',
-    test_loader='trytond.test_loader:Loader',
+    test_loader='trytonzz.test_loader:Loader',
 )
