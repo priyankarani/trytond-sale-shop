@@ -33,14 +33,14 @@ setup(name='trytonzz_sale_shop',
     author='Zikzakmedia SL',
     author_email='zikzak@zikzakmedia.com',
     url='http://www.zikzakmedia.com',
-    download_url="https://bitbucket.org/zikzakmedia/trytonzz-sale_shop",
-    package_dir={'trytonzz.modules.sale_shop': '.'},
+    download_url="https://bitbucket.org/zikzakmedia/trytond-sale_shop",
+    package_dir={'trytond.modules.sale_shop': '.'},
     packages=[
-        'trytonzz.modules.sale_shop',
-        'trytonzz.modules.sale_shop.tests',
+        'trytond.modules.sale_shop',
+        'trytond.modules.sale_shop.tests',
     ],
     package_data={
-        'trytonzz.modules.sale_shop': info.get('xml', []) \
+        'trytond.modules.sale_shop': info.get('xml', []) \
                 + info.get('translation', []),
     },
     classifiers=[
@@ -63,9 +63,9 @@ setup(name='trytonzz_sale_shop',
     install_requires=requires,
     zip_safe=False,
     entry_points="""
-    [trytonzz.modules]
-    sale_shop = trytonzz.modules.sale_shop
+    [trytond.modules]
+    sale_shop = trytond.modules.sale_shop
     """,
     test_suite='tests',
-    test_loader='trytonzz.test_loader:Loader',
+    test_loader='trytond.test_loader:Loader',
 )
