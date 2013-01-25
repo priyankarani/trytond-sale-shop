@@ -94,16 +94,17 @@ class Sale:
                     })
 
     @classmethod
-    def create(cls, vals):
-        User = Pool().get('res.user')
-        user = User(Transaction().user)
-        
-        if not user.shop:
-            cls.raise_user_error('not_sale_shop')
-
-        vals = vals.copy()
-        vals['shop'] = user.shop.id
-        return super(Sale, cls).create(vals)
+    def create(cls, vlist):
+        for vals in vlist:
+            User = Pool().get('res.user')
+            user = User(Transaction().user)
+            
+            if not user.shop:
+                cls.raise_user_error('not_sale_shop')
+    
+            vals = vals.copy()
+            vals['shop'] = user.shop.id
+        return super(Sale, cls).create(vlist)
 
     @classmethod
     def write(cls, sales, vals):
