@@ -90,9 +90,8 @@ Editar o aprobar pedido
 Todos los usuarios pueden acceder a los pedidos, pero solo pueden editar aquellos
 pedidos relacionados a la tiendas del usuario.
 
---------------------
-Módulos que dependen
---------------------
+Módulos de los que depende
+==========================
 
 Instalados
 ----------
@@ -107,7 +106,7 @@ Dependencias
 ------------
 
 * Ventas_
-* Tarifas de venta_
+* `Tarifas de venta`_
 
 .. _Ventas: ../sale/index.html
 .. _Tarifas de venta: ../sale_price_list/index.html
