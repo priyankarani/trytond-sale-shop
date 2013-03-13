@@ -7,6 +7,10 @@ Este módulo permite gestionar tiendas por usuarios:
 * Relaciona tiendas con usuarios.
 * Busca, filtra y lista por tienda.
 
+.. warning::  Es importante instalar este módulo antes que se realizen pedidos de
+              venta. En caso contrario, deberá un técnico instalar este módulo
+              y modificar unos parámetros a la base de datos.
+
 Configuración
 -------------
 
@@ -41,7 +45,7 @@ por defecto de la tienda:
 En la pestaña usuarios dispondrá de la información de usuarios disponibles a la tienda.
 
 .. note::  La configuración de ventas por defecto de Tryton queda deshabilitado,
-           ya que es reemplazado por esta configuración
+           ya que es reemplazado por la configuración de los parámetros por tienda.
 
 Usuarios
 --------
