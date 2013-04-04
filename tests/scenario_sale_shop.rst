@@ -27,24 +27,24 @@ Create company::
 
     >>> Currency = Model.get('currency.currency')
     >>> CurrencyRate = Model.get('currency.currency.rate')
-    >>> currencies = Currency.find([('code', '=', 'EUR')])
+    >>> Company = Model.get('company.company')
+    >>> company_config = Wizard('company.company.config')
+    >>> company_config.execute('company')
+    >>> company = company_config.form
+    >>> company.name = 'Dunder Mifflin'
+    >>> currencies = Currency.find([('code', '=', 'USD')])
     >>> if not currencies:
-    ...     currency = Currency(name='Euro', symbol=u'€', code='EUR',
-    ...         rounding=Decimal('0.01'), mon_grouping='[3, 3, 0]',
-    ...         mon_decimal_point=',')
+    ...     currency = Currency(name='US Dollar', symbol=u'$', code='USD',
+    ...         rounding=Decimal('0.01'), mon_grouping='[]',
+    ...         mon_decimal_point='.', mon_thousands_sep=',')
     ...     currency.save()
     ...     CurrencyRate(date=today + relativedelta(month=1, day=1),
     ...         rate=Decimal('1.0'), currency=currency).save()
     ... else:
     ...     currency, = currencies
-    >>> Company = Model.get('company.company')
-    >>> company_config = Wizard('company.company.config')
-    >>> company_config.execute('company')
-    >>> company = company_config.form
-    >>> company.name = 'Zikzakmedia'
     >>> company.currency = currency
     >>> company_config.execute('add')
-    >>> company, = Company.find([])
+    >>> company, = Company.find()
 
 Reload the context::
 
@@ -56,24 +56,25 @@ Create fiscal year::
     >>> FiscalYear = Model.get('account.fiscalyear')
     >>> Sequence = Model.get('ir.sequence')
     >>> SequenceStrict = Model.get('ir.sequence.strict')
-    >>> fiscalyear = FiscalYear(name=str(today.year))
+    >>> fiscalyear = FiscalYear(name='%s' % today.year)
     >>> fiscalyear.start_date = today + relativedelta(month=1, day=1)
     >>> fiscalyear.end_date = today + relativedelta(month=12, day=31)
     >>> fiscalyear.company = company
-    >>> post_move_seq = Sequence(name=str(today.year), code='account.move',
+    >>> post_move_sequence = Sequence(name='%s' % today.year,
+    ...     code='account.move',
     ...     company=company)
-    >>> post_move_seq.save()
-    >>> fiscalyear.post_move_sequence = post_move_seq
-    >>> invoice_seq = SequenceStrict(name=str(today.year),
-    ...     code='account.invoice', company=company)
-    >>> invoice_seq.save()
-    >>> fiscalyear.out_invoice_sequence = invoice_seq
-    >>> fiscalyear.in_invoice_sequence = invoice_seq
-    >>> fiscalyear.out_credit_note_sequence = invoice_seq
-    >>> fiscalyear.in_credit_note_sequence = invoice_seq
+    >>> post_move_sequence.save()
+    >>> fiscalyear.post_move_sequence = post_move_sequence
+    >>> invoice_sequence = SequenceStrict(name='%s' % today.year,
+    ...     code='account.invoice',
+    ...     company=company)
+    >>> invoice_sequence.save()
+    >>> fiscalyear.out_invoice_sequence = invoice_sequence
+    >>> fiscalyear.in_invoice_sequence = invoice_sequence
+    >>> fiscalyear.out_credit_note_sequence = invoice_sequence
+    >>> fiscalyear.in_credit_note_sequence = invoice_sequence
     >>> fiscalyear.save()
     >>> FiscalYear.create_period([fiscalyear.id], config.context)
-    True
 
 Create chart of accounts::
 
@@ -100,6 +101,11 @@ Create chart of accounts::
     >>> expense, = Account.find([
     ...         ('kind', '=', 'expense'),
     ...         ('company', '=', company.id),
+    ...         ])
+    >>> cash, = Account.find([
+    ...         ('kind', '=', 'other'),
+    ...         ('company', '=', company.id),
+    ...         ('name', '=', 'Main Cash'),
     ...         ])
     >>> create_chart.form.account_receivable = receivable
     >>> create_chart.form.account_payable = payable
