@@ -1,4 +1,4 @@
-#:before:sale/sale:title:venta#
+#:before:sale/sale:section:configuracion_metodo_de_envio_manual#
 
 Tiendas
 =======
@@ -29,22 +29,32 @@ A |menu_sale_shop| agregaremos una nueva tienda con la información:
 .. |shop_sale_shipment_method| field:: sale.shop/sale_shipment_method
 .. |shop_company| field:: sale.shop/company
 
-#:before:sale/sale:paragraph:el_numero_de_referencia_del_pedido#
+Usuarios
+--------
 
-Según las preferencias del usuario, se creará un pedido de venta según la tienda
-que esté activo en este momento. A la pestaña *Información adicional* dispone
-del campo en que tienda está relacionado este pedido de venta. Este campo sólo
-es de lectura.
+A |menu_user| podrá añadir o agregar a que tiendas pueden crear
+pedidos. A parte, dispone del campo en que tienda esta activo en este momento.
 
-* |sale_shop|: Tienda del pedido de venta
-    
-.. |sale_shop| field:: sale.sale/shop
+.. |menu_user| tryref:: res.menu_user_form/complete_name
 
-#:before:sale/sale:title:lineas_del_pedido_de_venta#
+Preferencias
+------------
 
-En el momento de crear un nuevo pedido de venta, los valores por defecto son
-definidos en la configuración de la tienda y pueden ser modificados en el momento
-de generar el pedido de venta.
+Los usuarios pueden cambiar de tienda mediante sus preferencias
+(Menú superior/Preferencias) y decidir en que tienda están en este momento
+creando/editando pedidos.
 
-.. note:: Los pedidos de venta sólo se muestran por las tiendas que el usuario tenga
-          acceso. Configure el usuario en que tiendas tiene acceso.
+.. figure:: images/tryton-sale-shop.png
+
+   Configuración de tiendas en Tryton
+
+Pedidos
+-------
+
+En el momento de crear un pedido nuevo, este se le asigna a una tienda. Este campo
+es requerido y de solo lectura, por tanto, si un usuario no tiene acceso a ninguna
+tienda, no podrá generar pedidos, aunque tenga roles de creación de pedidos.
+
+.. note::  Para crear pedidos de venta a parte de disponer de los grupos
+           relacionados a ventas, el usuario deberá pertenecer a una o varias
+           tiendas.
