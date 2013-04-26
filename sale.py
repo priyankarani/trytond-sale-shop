@@ -1,8 +1,7 @@
 #This file is part sale_shop module for Tryton.
 #The COPYRIGHT file at the top level of this repository contains 
 #the full copyright notices and license terms.
-
-from trytond.model import ModelView, ModelSQL, fields
+from trytond.model import fields
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 
@@ -78,7 +77,6 @@ class Sale:
         Sequence = pool.get('ir.sequence')
         Config = pool.get('sale.configuration')
         User = Pool().get('res.user')
-        Shop = Pool().get('sale.shop')
 
         config = Config(1)
         user = User(Transaction().user)
