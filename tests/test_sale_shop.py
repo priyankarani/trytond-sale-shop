@@ -36,6 +36,7 @@ class SaleShopTestCase(unittest.TestCase):
         '''
         test_depends()
 
+
 def doctest_dropdb(test):
     '''
     Remove sqlite memory database
@@ -47,6 +48,7 @@ def doctest_dropdb(test):
         cursor.commit()
     finally:
         cursor.close()
+
 
 def suite():
     suite = trytond.tests.test_tryton.suite()

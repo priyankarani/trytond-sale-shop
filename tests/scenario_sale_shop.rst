@@ -27,24 +27,27 @@ Create company::
 
     >>> Currency = Model.get('currency.currency')
     >>> CurrencyRate = Model.get('currency.currency.rate')
-    >>> Company = Model.get('company.company')
-    >>> company_config = Wizard('company.company.config')
-    >>> company_config.execute('company')
-    >>> company = company_config.form
-    >>> company.name = 'Dunder Mifflin'
     >>> currencies = Currency.find([('code', '=', 'USD')])
     >>> if not currencies:
     ...     currency = Currency(name='US Dollar', symbol=u'$', code='USD',
     ...         rounding=Decimal('0.01'), mon_grouping='[]',
-    ...         mon_decimal_point='.', mon_thousands_sep=',')
+    ...         mon_decimal_point='.')
     ...     currency.save()
     ...     CurrencyRate(date=today + relativedelta(month=1, day=1),
     ...         rate=Decimal('1.0'), currency=currency).save()
     ... else:
     ...     currency, = currencies
+    >>> Company = Model.get('company.company')
+    >>> Party = Model.get('party.party')
+    >>> company_config = Wizard('company.company.config')
+    >>> company_config.execute('company')
+    >>> company = company_config.form
+    >>> party = Party(name='Dunder Mifflin')
+    >>> party.save()
+    >>> company.party = party
     >>> company.currency = currency
     >>> company_config.execute('add')
-    >>> company, = Company.find()
+    >>> company, = Company.find([])
 
 Reload the context::
 
@@ -107,9 +110,39 @@ Create chart of accounts::
     ...         ('company', '=', company.id),
     ...         ('name', '=', 'Main Cash'),
     ...         ])
+    >>> account_tax, = Account.find([
+    ...         ('kind', '=', 'other'),
+    ...         ('company', '=', company.id),
+    ...         ('name', '=', 'Main Tax'),
+    ...         ])
     >>> create_chart.form.account_receivable = receivable
     >>> create_chart.form.account_payable = payable
     >>> create_chart.execute('create_properties')
+
+Create tax::
+
+    >>> TaxCode = Model.get('account.tax.code')
+    >>> Tax = Model.get('account.tax')
+    >>> tax = Tax()
+    >>> tax.name = 'Tax'
+    >>> tax.description = 'Tax'
+    >>> tax.type = 'percentage'
+    >>> tax.rate = Decimal('.10')
+    >>> tax.invoice_account = account_tax
+    >>> tax.credit_note_account = account_tax
+    >>> invoice_base_code = TaxCode(name='invoice base')
+    >>> invoice_base_code.save()
+    >>> tax.invoice_base_code = invoice_base_code
+    >>> invoice_tax_code = TaxCode(name='invoice tax')
+    >>> invoice_tax_code.save()
+    >>> tax.invoice_tax_code = invoice_tax_code
+    >>> credit_note_base_code = TaxCode(name='credit note base')
+    >>> credit_note_base_code.save()
+    >>> tax.credit_note_base_code = credit_note_base_code
+    >>> credit_note_tax_code = TaxCode(name='credit note tax')
+    >>> credit_note_tax_code.save()
+    >>> tax.credit_note_tax_code = credit_note_tax_code
+    >>> tax.save()
 
 Create parties::
 
@@ -129,19 +162,21 @@ Create product::
 
     >>> ProductUom = Model.get('product.uom')
     >>> unit, = ProductUom.find([('name', '=', 'Unit')])
+    >>> ProductTemplate = Model.get('product.template')
     >>> Product = Model.get('product.product')
     >>> product = Product()
-    >>> product.name = 'product'
-    >>> product.category = category
-    >>> product.default_uom = unit
-    >>> product.type = 'goods'
-    >>> product.purchasable = True
-    >>> product.salable = True
-    >>> product.list_price = Decimal('10')
-    >>> product.cost_price = Decimal('5')
-    >>> product.cost_price_method = 'fixed'
-    >>> product.account_expense = expense
-    >>> product.account_revenue = revenue
+    >>> template = ProductTemplate()
+    >>> template.name = 'product'
+    >>> template.default_uom = unit
+    >>> template.type = 'goods'
+    >>> template.list_price = Decimal('40')
+    >>> template.cost_price = Decimal('25')
+    >>> template.account_expense = expense
+    >>> template.account_revenue = revenue
+    >>> template.salable = True
+    >>> template.customer_taxes.append(tax)
+    >>> template.save()
+    >>> product.template = template
     >>> product.save()
 
 Create payment term::
