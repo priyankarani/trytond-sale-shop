@@ -6,50 +6,12 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.ui.view" id="sale_shop_view_form">
             <field name="model">sale.shop</field>
             <field name="type">form</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <form string="Shops" col="4">
-                    <label name="name"/>
-                    <field name="name"/>
-                    <label name="company"/>
-                    <field name="company"/>
-                    <notebook colspan="4">
-                        <page string="General" id="general">
-                            <label name="sale_sequence"/>
-                            <field name="sale_sequence" widget="selection"/>
-                            <newline />
-                            <label name="sale_invoice_method" />
-                            <field name="sale_invoice_method" />
-                            <label name="sale_shipment_method" />
-                            <field name="sale_shipment_method" />
-                            <label name="price_list"/>
-                            <field name="price_list" widget="selection"/>
-                            <label name="payment_term"/>
-                            <field name="payment_term" widget="selection"/>
-                            <label name="warehouse"/>
-                            <field name="warehouse" widget="selection"/>
-                        </page>
-                        <page string="Users" id="users">
-                            <field name="users" readonly="1"/>
-                        </page>
-                    </notebook>
-                </form>
-                ]]>
-            </field>
+            <field name="name">sale_shop_form</field>
         </record>
         <record model="ir.ui.view" id="sale_shop_view_tree">
             <field name="model">sale.shop</field>
             <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <tree string="Shops">
-                    <field name="name"/>
-                    <field name="warehouse"/>
-                    <field name="price_list"/>
-                    <field name="company"/>
-                </tree>
-                ]]>
-            </field>
+            <field name="name">sale_shop_tree</field>
         </record>
 
         <!-- Actions / Menu -->
