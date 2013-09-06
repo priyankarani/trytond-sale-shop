@@ -4,8 +4,10 @@
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import If, Eval, Bool
 from trytond.transaction import Transaction
+from trytond.pool import Pool
 
 __all__ = ['SaleShop', 'SaleShopResUser']
+
 
 class SaleShop(ModelSQL, ModelView):
     'Sale Shop'
@@ -46,6 +48,13 @@ class SaleShop(ModelSQL, ModelView):
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
+
+    @staticmethod
+    def sale_configuration():
+        Config = Pool().get('sale.configuration')
+        config = Config(1)
+        return config
+
 
 class SaleShopResUser(ModelSQL):
     'Sale Shop - Res User'
