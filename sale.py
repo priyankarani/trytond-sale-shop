@@ -8,6 +8,7 @@ from trytond.pool import Pool, PoolMeta
 __all__ = ['Sale']
 __metaclass__ = PoolMeta
 
+
 class Sale:
     'Sale'
     __name__ = 'sale.sale'
@@ -96,10 +97,10 @@ class Sale:
         for vals in vlist:
             User = Pool().get('res.user')
             user = User(Transaction().user)
-            
+
             if not user.shop:
                 cls.raise_user_error('not_sale_shop')
-    
+
             vals = vals.copy()
             vals['shop'] = user.shop.id
         return super(Sale, cls).create(vlist)
