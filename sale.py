@@ -19,7 +19,7 @@ class Sale:
         cls._error_messages.update({
                 'not_sale_shop': 'What shop would like to sell? Go to preferences',
                 'edit_sale_by_shop': 'You cannot edit this order because you do not '
-                    'have permission to edit edit in this shop.',
+                    'have permission to edit in this shop.',
             })
 
     def on_change_party(self):

@@ -8,7 +8,7 @@ msgstr "Quina botiga vol vendre? Ves a les preferencies"
 
 msgctxt "error:sale.sale:"
 msgid ""
-"You cannot edit this order because you do not have permission to edit edit "
+"You cannot edit this order because you do not have permission to edit "
 "in this shop."
 msgstr ""
 "No pot editar aquesta comanda perque no disponsa de permisos d'edició en "
