@@ -98,7 +98,7 @@ class Sale:
             User = Pool().get('res.user')
             user = User(Transaction().user)
 
-            if not user.shop:
+            if not user.id == 0 and not user.shop:
                 cls.raise_user_error('not_sale_shop')
 
             vals = vals.copy()
@@ -112,8 +112,10 @@ class Sale:
         '''
         User = Pool().get('res.user')
         user = User(Transaction().user)
-        shops = [s.id for s in user.shops]
-        for sale in sales:
-            if not sale.shop.id in shops:
-                cls.raise_user_error('edit_sale_by_shop')
+
+        if not user.id == 0:
+            shops = [s.id for s in user.shops]
+            for sale in sales:
+                if not sale.shop.id in shops:
+                    cls.raise_user_error('edit_sale_by_shop')
         super(Sale, cls).write(sales, vals)
