@@ -102,7 +102,8 @@ class Sale:
                 cls.raise_user_error('not_sale_shop')
 
             vals = vals.copy()
-            vals['shop'] = user.shop.id
+            if not 'shop' in vals:
+                vals['shop'] = user.shop.id
         return super(Sale, cls).create(vlist)
 
     @classmethod
