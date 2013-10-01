@@ -22,7 +22,7 @@ class SaleShop(ModelSQL, ModelView):
     sale_sequence = fields.Property(fields.Many2One('ir.sequence',
             'Sale Reference Sequence', domain=[
                 ('company', 'in', [Eval('context', {}).get('company', 0),
-                        False]),
+                        None]),
                 ('code', '=', 'sale.sale'),
                 ], required=True))
     sale_invoice_method = fields.Property(fields.Selection([
