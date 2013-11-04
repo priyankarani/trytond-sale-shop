@@ -10,7 +10,6 @@ __metaclass__ = PoolMeta
 
 
 class Sale:
-    'Sale'
     __name__ = 'sale.sale'
     shop = fields.Many2One('sale.shop', 'Shop', required=True, readonly=True)
 

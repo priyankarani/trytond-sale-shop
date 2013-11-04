@@ -8,8 +8,8 @@ from trytond.pool import PoolMeta
 __all__ = ['User']
 __metaclass__ = PoolMeta
 
+
 class User:
-    "User"
     __name__ = "res.user"
 
     shops = fields.Many2Many('sale.shop-res.user', 'user', 'shop', 'Shops')
