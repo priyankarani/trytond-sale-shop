@@ -10,6 +10,7 @@ __all__ = ['SaleShop', 'SaleShopResUser']
 
 
 class SaleShop(ModelSQL, ModelView):
+    'Sale Shop'
     __name__ = 'sale.shop'
     name = fields.Char('Shop Name', required=True, select=True)
     users = fields.Many2Many('sale.shop-res.user', 'shop', 'user', 'Users')

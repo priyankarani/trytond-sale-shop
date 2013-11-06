@@ -29,34 +29,38 @@ class Sale:
         user = User(Transaction().user)
         if user.shop:
             if not res.get('price_list') and res.get('invoice_address'):
+                res['price_list'] = Shop(user.shop).price_list.id
                 res['price_list.rec_name'] = Shop(user.shop).price_list.rec_name
             if not res.get('payment_term') and res.get('invoice_address'):
-                res['payment_term.rec_name'] = Shop.browse(user.shop).payment_term.rec_name
+                res['payment_term'] = Shop(user.shop).payment_term.id
+                res['payment_term.rec_name'] = \
+                    Shop(user.shop).payment_term.rec_name
         return res
 
     @staticmethod
     def default_company():
         User = Pool().get('res.user')
         user = User(Transaction().user)
-        return user.shop and user.shop.company.id or Transaction().context.get('company')
+        return user.shop.company.id if user.shop else \
+            Transaction().context.get('company')
 
     @staticmethod
     def default_shop():
         User = Pool().get('res.user')
         user = User(Transaction().user)
-        return user.shop and user.shop.id or False
+        return user.shop.id if user.shop else None
 
     @staticmethod
     def default_invoice_method():
         User = Pool().get('res.user')
         user = User(Transaction().user)
-        return user.shop and user.shop.sale_invoice_method or 'manual'
+        return user.shop.sale_invoice_method if user.shop else 'manual'
 
     @staticmethod
     def default_shipment_method():
         User = Pool().get('res.user')
         user = User(Transaction().user)
-        return user.shop and user.shop.sale_shipment_method or 'manual'
+        return user.shop.sale_shipment_method if user.shop else 'manual'
 
     @staticmethod
     def default_warehouse():
@@ -67,6 +71,18 @@ class Sale:
         else:
             Location = Pool().get('stock.location')
             return Location.search([('type', '=', 'warehouse')], limit=1)[0].id
+
+    @staticmethod
+    def default_price_list():
+        User = Pool().get('res.user')
+        user = User(Transaction().user)
+        return user.shop.price_list.id if user.shop else None
+
+    @staticmethod
+    def default_payment_term():
+        User = Pool().get('res.user')
+        user = User(Transaction().user)
+        return user.shop.payment_term.id if user.shop else None
 
     @classmethod
     def set_reference(cls, sales):
