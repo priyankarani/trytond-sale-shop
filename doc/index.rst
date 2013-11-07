@@ -1,7 +1,10 @@
 Sale Shop Module
 ################
 
-The sale_shop module add sale shop in yours sale.sale and user permissions.
+Sale Shop module add features:
+* Manage shops and users
+* Search, filter and list sales by shop
 
-.. warning::  Install this module before adding sale. If not, you need to alter
-              sale table to add shop columns.
+
+Install this module before adding sale. If not, you need to alter sale table to 
+add shop columns.
