@@ -3,6 +3,10 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:sale.sale:"
+msgid "Sale have not related a shop"
+msgstr "La comanda no està relacionada amb una botiga"
+
+msgctxt "error:sale.sale:"
 msgid "What shop would like to sell? Go to preferences"
 msgstr ""
 "A quina botiga voleu vendre? Aneu a les vostres preferencies per configurar "
