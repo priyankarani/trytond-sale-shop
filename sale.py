@@ -18,6 +18,7 @@ class Sale:
         super(Sale, cls).__setup__()
         cls._error_messages.update({
                 'not_sale_shop': 'What shop would like to sell? Go to preferences',
+                'sale_not_shop': 'Sale have not related a shop',
                 'edit_sale_by_shop': 'You cannot edit this order because you do not '
                     'have permission to edit in this shop.',
             })
@@ -132,6 +133,8 @@ class Sale:
         if not user.id == 0:
             shops = [s.id for s in user.shops]
             for sale in sales:
+                if not sale.shop:
+                    cls.raise_user_error('sale_not_shop')
                 if not sale.shop.id in shops:
                     cls.raise_user_error('edit_sale_by_shop')
         super(Sale, cls).write(sales, vals)
