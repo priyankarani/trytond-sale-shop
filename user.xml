@@ -6,41 +6,12 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.ui.view" id="user_view_form">
             <field name="model">res.user</field>
             <field name="inherit" ref="res.user_view_form"/>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <data>
-                    <xpath
-                        expr="/form/notebook/page[@id=&quot;preferences&quot;]/field[@name=&quot;timezone&quot;]"
-                        position="after">
-                        <label name="shop"/>
-                        <field name="shop" widget="selection"/>
-                    </xpath>
-                    <xpath
-                        expr="/form/notebook/page[@id=&quot;preferences&quot;]"
-                        position="after">
-                        <page string="Shops" col="2" id="shops">
-                            <field name="shops"/>
-                        </page>
-                    </xpath>
-                </data>
-                ]]>
-            </field>
+            <field name="name">user_form</field>
         </record>
         <record model="ir.ui.view" id="user_view_form_preferences">
             <field name="model">res.user</field>
             <field name="inherit" ref="res.user_view_form_preferences"/>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <data>
-                    <xpath
-                        expr="/form/notebook/page[@id=&quot;preferences&quot;]/field[@name=&quot;timezone&quot;]"
-                        position="after">
-                        <label name="shop"/>
-                        <field name="shop" widget="selection"/>
-                    </xpath>
-                </data>
-                ]]>
-            </field>
+            <field name="name">user_form_preferences</field>
         </record>
     </data>
 </tryton>
