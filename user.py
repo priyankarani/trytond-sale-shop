@@ -25,3 +25,9 @@ class User:
             'shop',
             'shops',
         ])
+
+    def get_status_bar(self, name):
+        status = super(User, self).get_status_bar(name)
+        if self.shop:
+            status += ' - %s' % (self.shop.rec_name)
+        return status
