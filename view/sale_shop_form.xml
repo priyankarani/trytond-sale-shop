@@ -9,18 +9,18 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <notebook colspan="4">
         <page string="General" id="general">
             <label name="sale_sequence"/>
-            <field name="sale_sequence" widget="selection"/>
+            <field name="sale_sequence"/>
             <newline />
             <label name="sale_invoice_method" />
             <field name="sale_invoice_method" />
             <label name="sale_shipment_method" />
             <field name="sale_shipment_method" />
             <label name="price_list"/>
-            <field name="price_list" widget="selection"/>
+            <field name="price_list"/>
             <label name="payment_term"/>
-            <field name="payment_term" widget="selection"/>
+            <field name="payment_term"/>
             <label name="warehouse"/>
-            <field name="warehouse" widget="selection"/>
+            <field name="warehouse"/>
         </page>
         <page string="Users" id="users">
             <field name="users" readonly="1"/>
