@@ -1,4 +1,4 @@
-#:before:sale/sale:section:configuracion_metodo_de_envio_manual#
+#:before:sale/sale:section:configuracion#
 
 Tiendas
 =======
