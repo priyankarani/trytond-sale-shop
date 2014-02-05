@@ -17,7 +17,7 @@ class Sale:
     def __setup__(cls):
         super(Sale, cls).__setup__()
         cls._error_messages.update({
-                'not_sale_shop': 'What shop would like to sell? Go to preferences',
+                'not_sale_shop': 'Go to user preferences and select a shop ("%s")',
                 'sale_not_shop': 'Sale have not related a shop',
                 'edit_sale_by_shop': 'You cannot edit this order because you do not '
                     'have permission to edit in this shop.',
@@ -114,11 +114,12 @@ class Sale:
             User = Pool().get('res.user')
             user = User(Transaction().user)
 
-            if not user.id == 0 and not user.shop:
-                cls.raise_user_error('not_sale_shop')
-
             vals = vals.copy()
             if not 'shop' in vals:
+                if not user.shop:
+                    cls.raise_user_error('not_sale_shop', (
+                            user.rec_name,)
+                            )
                 vals['shop'] = user.shop.id
         return super(Sale, cls).create(vlist)
 
