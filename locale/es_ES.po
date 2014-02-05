@@ -3,14 +3,12 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:sale.sale:"
-msgid "Sale have not related a shop"
-msgstr "El pedido no está relacionado con una tienda"
+msgid "Go to user preferences and select a shop (\"%s\")"
+msgstr "Seleccione una tienda en sus preferencias (\"%s\")"
 
 msgctxt "error:sale.sale:"
-msgid "What shop would like to sell? Go to preferences"
-msgstr ""
-"¿En qué tienda quiere vender? Acceda a sus preferencias para configurar su "
-"tienda."
+msgid "Sale have not related a shop"
+msgstr "El pedido no está relacionado con una tienda"
 
 msgctxt "error:sale.sale:"
 msgid ""
