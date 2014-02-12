@@ -1,6 +1,6 @@
-#This file is part sale_shop module for Tryton.
-#The COPYRIGHT file at the top level of this repository contains 
-#the full copyright notices and license terms.
+# This file is part sale_shop module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains the full
+# copyright notices and license terms.
 from trytond.model import fields
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
@@ -17,10 +17,12 @@ class Sale:
     def __setup__(cls):
         super(Sale, cls).__setup__()
         cls._error_messages.update({
-                'not_sale_shop': 'Go to user preferences and select a shop ("%s")',
-                'sale_not_shop': 'Sale have not related a shop',
-                'edit_sale_by_shop': 'You cannot edit this order because you do not '
-                    'have permission to edit in this shop.',
+                'not_sale_shop': (
+                    'Go to user preferences and select a shop ("%s")'),
+                'sale_not_shop': (
+                    'Sale have not related a shop'),
+                'edit_sale_by_shop': ('You cannot edit this order because you '
+                    'do not have permission to edit in this shop.'),
             })
 
     def on_change_party(self):
@@ -31,7 +33,8 @@ class Sale:
         if user.shop:
             if not res.get('price_list') and res.get('invoice_address'):
                 res['price_list'] = Shop(user.shop).price_list.id
-                res['price_list.rec_name'] = Shop(user.shop).price_list.rec_name
+                res['price_list.rec_name'] = (
+                    Shop(user.shop).price_list.rec_name)
             if not res.get('payment_term') and res.get('invoice_address'):
                 res['payment_term'] = Shop(user.shop).payment_term.id
                 res['payment_term.rec_name'] = \

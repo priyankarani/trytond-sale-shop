@@ -1,5 +1,5 @@
 #This file is part sale_shop module for Tryton.
-#The COPYRIGHT file at the top level of this repository contains 
+#The COPYRIGHT file at the top level of this repository contains
 #the full copyright notices and license terms.
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import If, Eval, Bool
@@ -16,7 +16,8 @@ class SaleShop(ModelSQL, ModelView):
     users = fields.Many2Many('sale.shop-res.user', 'shop', 'user', 'Users')
     warehouse = fields.Many2One('stock.location', "Warehouse", required=True,
         domain=[('type', '=', 'warehouse')])
-    price_list = fields.Many2One('product.price_list', 'Pricelist', required=True)
+    price_list = fields.Many2One('product.price_list', 'Pricelist',
+        required=True)
     payment_term = fields.Many2One('account.invoice.payment_term',
         'Payment Term', required=True)
     sale_sequence = fields.Property(fields.Many2One('ir.sequence',
@@ -60,7 +61,8 @@ class SaleShopResUser(ModelSQL):
     'Sale Shop - Res User'
     __name__ = 'sale.shop-res.user'
     _table = 'sale_shop_res_user'
-    shop = fields.Many2One('sale.shop', 'Shop',
-            ondelete='CASCADE', select=True, required=True)
-    user = fields.Many2One('res.user', 'User',
-            ondelete='RESTRICT', required=True)
+
+    shop = fields.Many2One('sale.shop', 'Shop', ondelete='CASCADE',
+        select=True, required=True)
+    user = fields.Many2One('res.user', 'User', ondelete='RESTRICT',
+        required=True)
