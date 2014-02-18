@@ -15,5 +15,14 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="inherit" ref="sale.sale_view_tree"/>
             <field name="name">sale_tree</field>
         </record>
+
+        <record model="ir.rule.group" id="rule_group_sale">
+            <field name="model" search="[('model', '=', 'sale.sale')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_sale1">
+            <field name="domain">[('shop', 'in', [s.id for s in user.shops])]</field>
+            <field name="rule_group" ref="rule_group_sale"/>
+        </record>
     </data>
 </tryton>

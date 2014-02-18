@@ -4,6 +4,7 @@
 from trytond.model import fields
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
+from trytond.pyson import Bool, Eval
 
 __all__ = ['Sale']
 __metaclass__ = PoolMeta
@@ -11,7 +12,12 @@ __metaclass__ = PoolMeta
 
 class Sale:
     __name__ = 'sale.sale'
-    shop = fields.Many2One('sale.shop', 'Shop', required=True, readonly=True)
+
+    shop = fields.Many2One('sale.shop', 'Shop', required=True, domain=[
+            ('id', 'in', Eval('context', {}).get('shops', [])),
+            ], states={
+            'readonly': Bool(Eval('reference')),
+            }, depends=['reference'])
 
     @classmethod
     def __setup__(cls):
@@ -24,22 +30,6 @@ class Sale:
                 'edit_sale_by_shop': ('You cannot edit this order because you '
                     'do not have permission to edit in this shop.'),
             })
-
-    def on_change_party(self):
-        User = Pool().get('res.user')
-        Shop = Pool().get('sale.shop')
-        res = super(Sale, self).on_change_party()
-        user = User(Transaction().user)
-        if user.shop:
-            if not res.get('price_list') and res.get('invoice_address'):
-                res['price_list'] = Shop(user.shop).price_list.id
-                res['price_list.rec_name'] = (
-                    Shop(user.shop).price_list.rec_name)
-            if not res.get('payment_term') and res.get('invoice_address'):
-                res['payment_term'] = Shop(user.shop).payment_term.id
-                res['payment_term.rec_name'] = \
-                    Shop(user.shop).payment_term.rec_name
-        return res
 
     @staticmethod
     def default_company():
@@ -87,6 +77,22 @@ class Sale:
         User = Pool().get('res.user')
         user = User(Transaction().user)
         return user.shop.payment_term.id if user.shop else None
+
+    def on_change_party(self):
+        User = Pool().get('res.user')
+        Shop = Pool().get('sale.shop')
+        res = super(Sale, self).on_change_party()
+        user = User(Transaction().user)
+        if user.shop:
+            if not res.get('price_list') and res.get('invoice_address'):
+                res['price_list'] = Shop(user.shop).price_list.id
+                res['price_list.rec_name'] = (
+                    Shop(user.shop).price_list.rec_name)
+            if not res.get('payment_term') and res.get('invoice_address'):
+                res['payment_term'] = Shop(user.shop).payment_term.id
+                res['payment_term.rec_name'] = \
+                    Shop(user.shop).payment_term.rec_name
+        return res
 
     @classmethod
     def set_reference(cls, sales):
