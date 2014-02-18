@@ -15,7 +15,10 @@ class Sale:
 
     shop = fields.Many2One('sale.shop', 'Shop', required=True, domain=[
             ('id', 'in', Eval('context', {}).get('shops', [])),
-            ], states={
+            ],
+        on_change=['shop', 'company', 'invoice_method', 'shipment_method',
+            'warehouse', 'price_list', 'payment_term'],
+        states={
             'readonly': Bool(Eval('reference')),
             }, depends=['reference'])
     shop_address = fields.Function(fields.Many2One('party.address',
@@ -100,9 +103,23 @@ class Sale:
         return (user.shop and user.shop.address and
             user.shop.address.id or None)
 
+    def on_change_shop(self):
+        if not self.shop:
+            return {}
+        res = {}
+        for fname in ('company', 'warehouse', 'price_list', 'payment_term'):
+            fvalue = getattr(self.shop, fname)
+            if fvalue:
+                res[fname] = fvalue.id
+        if self.shop.sale_invoice_method:
+            res['invoice_method'] = self.shop.sale_invoice_method
+        if self.shop.sale_shipment_method:
+            res['shipment_method'] = self.shop.sale_shipment_method
+        return res
+
     def on_change_with_shop_address(self, name=None):
-        return (self.shop and self.shop.warehouse.address and
-            self.shop.warehouse.address.id or None)
+        return (self.shop and self.shop.address and
+            self.shop.address.id or None)
 
     def on_change_party(self):
         User = Pool().get('res.user')
