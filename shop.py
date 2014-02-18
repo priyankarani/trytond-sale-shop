@@ -15,6 +15,9 @@ class SaleShop(ModelSQL, ModelView):
 
     name = fields.Char('Shop Name', required=True, select=True)
     users = fields.Many2Many('sale.shop-res.user', 'shop', 'user', 'Users')
+    address = fields.Many2One('party.address', 'Address', domain=[
+            ('party', '=', Eval('company_party')),
+            ], depends=['company_party'])
     warehouse = fields.Many2One('stock.location', "Warehouse", required=True,
         domain=[('type', '=', 'warehouse')])
     price_list = fields.Many2One('product.price_list', 'Pricelist',

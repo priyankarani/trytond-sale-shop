@@ -6,6 +6,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <field name="name"/>
     <label name="company"/>
     <field name="company"/>
+    <label name="address"/>
+    <field name="address"/>
     <notebook colspan="4">
         <page string="General" id="general">
             <label name="sale_sequence"/>

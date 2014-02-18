@@ -18,10 +18,25 @@ class Sale:
             ], states={
             'readonly': Bool(Eval('reference')),
             }, depends=['reference'])
+    shop_address = fields.Function(fields.Many2One('party.address',
+            'Shop Address', on_change_with=['shop']),
+        'on_change_with_shop_address')
 
     @classmethod
     def __setup__(cls):
         super(Sale, cls).__setup__()
+
+        shipment_addr_domain = cls.shipment_address.domain[:]
+        if shipment_addr_domain:
+            cls.shipment_address.domain = [
+                'OR',
+                shipment_addr_domain,
+                [('id', '=', Eval('shop_address', 0))],
+                ]
+        else:
+            cls.shipment_address.domain = [('id', '=', Eval('shop_address'))]
+        cls.shipment_address.depends.append('shop_address')
+
         cls._error_messages.update({
                 'not_sale_shop': (
                     'Go to user preferences and select a shop ("%s")'),
@@ -77,6 +92,17 @@ class Sale:
         User = Pool().get('res.user')
         user = User(Transaction().user)
         return user.shop.payment_term.id if user.shop else None
+
+    @staticmethod
+    def default_shop_address():
+        User = Pool().get('res.user')
+        user = User(Transaction().user)
+        return (user.shop and user.shop.address and
+            user.shop.address.id or None)
+
+    def on_change_with_shop_address(self, name=None):
+        return (self.shop and self.shop.warehouse.address and
+            self.shop.warehouse.address.id or None)
 
     def on_change_party(self):
         User = Pool().get('res.user')

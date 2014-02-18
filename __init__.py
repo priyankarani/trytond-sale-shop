@@ -5,6 +5,7 @@ from trytond.pool import Pool
 from .shop import *
 from .sale import *
 from .user import *
+from .stock import *
 
 
 def register():
@@ -13,4 +14,6 @@ def register():
         SaleShopResUser,
         Sale,
         User,
+        ShipmentOut,
+        ShipmentOutReturn,
         module='sale_shop', type_='model')
