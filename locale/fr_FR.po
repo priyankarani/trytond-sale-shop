@@ -1,25 +1,10 @@
-#
-# , 2013.
+# 
 msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: \n"
-"PO-Revision-Date: 2013-11-23 12:09+0100\n"
-"Project-Id-Version: \n"
-"Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
-"Content-Transfer-Encoding: 8bit\n"
-"MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.4\n"
+msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:sale.sale:"
 msgid "Sale have not related a shop"
 msgstr "Vente non liées a un magasin"
-
-msgctxt "error:sale.sale:"
-msgid "What shop would like to sell? Go to preferences"
-msgstr "Sur quel magasin souhaitez vous vendre ? Allez dans les Préférences"
 
 msgctxt "error:sale.sale:"
 msgid ""
@@ -27,8 +12,7 @@ msgid ""
 "this shop."
 msgstr ""
 "Vous ne pouvez pas modifier cette commande car vous n'avez pas les "
-"permissions "
-"d'édition sur ce magasin."
+"permissions d'édition sur ce magasin."
 
 msgctxt "field:res.user,shop:"
 msgid "Shop"
@@ -42,9 +26,18 @@ msgctxt "field:sale.sale,shop:"
 msgid "Shop"
 msgstr "Magasin"
 
+#, fuzzy
+msgctxt "field:sale.shop,address:"
+msgid "Address"
+msgstr "Adresse"
+
 msgctxt "field:sale.shop,company:"
 msgid "Company"
 msgstr "Société"
+
+msgctxt "field:sale.shop,company_party:"
+msgid "Company Party"
+msgstr ""
 
 msgctxt "field:sale.shop,create_date:"
 msgid "Create Date"
@@ -134,6 +127,14 @@ msgctxt "field:sale.shop-res.user,write_uid:"
 msgid "Write User"
 msgstr "Mis à jour par"
 
+msgctxt "field:stock.shipment.out,shop_addresses:"
+msgid "Shop Addresses"
+msgstr ""
+
+msgctxt "field:stock.shipment.out.return,shop_addresses:"
+msgid "Shop Addresses"
+msgstr ""
+
 msgctxt "model:ir.action,name:act_sale_shop_form"
 msgid "Shops"
 msgstr "Magasins"
@@ -190,4 +191,3 @@ msgstr "Magasins"
 msgctxt "view:sale.shop:"
 msgid "Users"
 msgstr "Utilisateurs"
-

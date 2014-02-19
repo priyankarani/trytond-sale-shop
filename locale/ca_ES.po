@@ -30,9 +30,17 @@ msgctxt "field:sale.sale,shop:"
 msgid "Shop"
 msgstr "Botiga"
 
+msgctxt "field:sale.shop,address:"
+msgid ""
+msgstr ""
+
 msgctxt "field:sale.shop,company:"
 msgid "Company"
 msgstr "Empresa"
+
+msgctxt "field:sale.shop,company_party:"
+msgid "Company Party"
+msgstr "Tercer de l'empresa"
 
 msgctxt "field:sale.shop,create_date:"
 msgid "Create Date"
@@ -121,6 +129,14 @@ msgstr "Data actualització"
 msgctxt "field:sale.shop-res.user,write_uid:"
 msgid "Write User"
 msgstr "Usuari actualització"
+
+msgctxt "field:stock.shipment.out,shop_addresses:"
+msgid "Shop Addresses"
+msgstr "Adreces de la botiga"
+
+msgctxt "field:stock.shipment.out.return,shop_addresses:"
+msgid "Shop Addresses"
+msgstr "Adreces de la botiga"
 
 msgctxt "model:ir.action,name:act_sale_shop_form"
 msgid "Shops"

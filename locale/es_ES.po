@@ -30,9 +30,17 @@ msgctxt "field:sale.sale,shop:"
 msgid "Shop"
 msgstr "Tienda"
 
+msgctxt "field:sale.shop,address:"
+msgid ""
+msgstr ""
+
 msgctxt "field:sale.shop,company:"
 msgid "Company"
 msgstr "Empresa"
+
+msgctxt "field:sale.shop,company_party:"
+msgid "Company Party"
+msgstr "Tercero de la empresa"
 
 msgctxt "field:sale.shop,create_date:"
 msgid "Create Date"
@@ -121,6 +129,14 @@ msgstr "Fecha modificación"
 msgctxt "field:sale.shop-res.user,write_uid:"
 msgid "Write User"
 msgstr "Usuario modificación"
+
+msgctxt "field:stock.shipment.out,shop_addresses:"
+msgid "Shop Addresses"
+msgstr "Direcciones de la tienda"
+
+msgctxt "field:stock.shipment.out.return,shop_addresses:"
+msgid "Shop Addresses"
+msgstr "Direcciones de la tienda"
 
 msgctxt "model:ir.action,name:act_sale_shop_form"
 msgid "Shops"
