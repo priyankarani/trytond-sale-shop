@@ -152,7 +152,9 @@ class Sale:
         for sale in sales:
             if sale.reference:
                 continue
-            if user.shop:
+            if sale.shop:
+                reference = Sequence.get_id(sale.shop.sale_sequence.id)
+            elif user.shop:
                 reference = Sequence.get_id(user.shop.sale_sequence.id)
             else:
                 reference = Sequence.get_id(config.sale_sequence.id)
