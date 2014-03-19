@@ -4,7 +4,7 @@
 from trytond.model import fields
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Bool, Eval
+from trytond.pyson import Bool, Eval, Or
 
 __all__ = ['Sale']
 __metaclass__ = PoolMeta
@@ -19,8 +19,8 @@ class Sale:
         on_change=['shop', 'company', 'invoice_method', 'shipment_method',
             'warehouse', 'price_list', 'payment_term'],
         states={
-            'readonly': Bool(Eval('reference')),
-            }, depends=['reference'])
+            'readonly': Or(Bool(Eval('reference')), Bool(Eval('lines'))),
+            }, depends=['reference', 'lines'])
     shop_address = fields.Function(fields.Many2One('party.address',
             'Shop Address', on_change_with=['shop']),
         'on_change_with_shop_address')
