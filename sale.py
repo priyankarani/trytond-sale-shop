@@ -66,13 +66,21 @@ class Sale:
     def default_invoice_method():
         User = Pool().get('res.user')
         user = User(Transaction().user)
-        return user.shop.sale_invoice_method if user.shop else 'manual'
+        if not user.shop:
+            Config = Pool().get('sale.configuration')
+            config = Config(1)
+            return config.sale_invoice_method
+        return user.shop.sale_invoice_method
 
     @staticmethod
     def default_shipment_method():
         User = Pool().get('res.user')
         user = User(Transaction().user)
-        return user.shop.sale_shipment_method if user.shop else 'manual'
+        if not user.shop:
+            Config = Pool().get('sale.configuration')
+            config = Config(1)
+            return config.sale_invoice_method
+        return user.shop.sale_shipment_method
 
     @staticmethod
     def default_warehouse():
