@@ -11,7 +11,6 @@ __metaclass__ = PoolMeta
 
 class User:
     __name__ = "res.user"
-
     shops = fields.Many2Many('sale.shop-res.user', 'user', 'shop', 'Shops')
     shop = fields.Many2One('sale.shop', 'Shop', domain=[
             ('id', 'in', Eval('shops', [])),

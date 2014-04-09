@@ -12,7 +12,6 @@ __metaclass__ = PoolMeta
 
 class Sale:
     __name__ = 'sale.sale'
-
     shop = fields.Many2One('sale.shop', 'Shop', required=True, domain=[
             ('id', 'in', Eval('context', {}).get('shops', [])),
             ],
@@ -172,10 +171,10 @@ class Sale:
 
     @classmethod
     def create(cls, vlist):
+        vlist2 = []
         for vals in vlist:
             User = Pool().get('res.user')
             user = User(Transaction().user)
-
             vals = vals.copy()
             if not 'shop' in vals:
                 if not user.shop:
@@ -183,7 +182,8 @@ class Sale:
                             user.rec_name,)
                             )
                 vals['shop'] = user.shop.id
-        return super(Sale, cls).create(vlist)
+            vlist2.append(vals)
+        return super(Sale, cls).create(vlist2)
 
     @classmethod
     def write(cls, sales, vals):
