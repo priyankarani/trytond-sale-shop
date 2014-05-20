@@ -186,18 +186,18 @@ class Sale:
         return super(Sale, cls).create(vlist2)
 
     @classmethod
-    def write(cls, sales, vals):
+    def write(cls, *args):
         '''
         Only edit Sale users available edit in this shop
         '''
         User = Pool().get('res.user')
         user = User(Transaction().user)
-
-        if not user.id == 0:
+        if user.id != 0:
             shops = [s.id for s in user.shops]
-            for sale in sales:
-                if not sale.shop:
-                    cls.raise_user_error('sale_not_shop')
-                if not sale.shop.id in shops:
-                    cls.raise_user_error('edit_sale_by_shop')
-        super(Sale, cls).write(sales, vals)
+            for sales in iter(args):
+                for sale in sales:
+                    if not sale.shop:
+                        cls.raise_user_error('sale_not_shop')
+                    if not sale.shop.id in shops:
+                        cls.raise_user_error('edit_sale_by_shop')
+        super(Sale, cls).write(*args)
